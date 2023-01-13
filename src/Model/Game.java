@@ -25,9 +25,10 @@ public final class Game {
         }
     }
 
-    //assign deck from Deck singleton to unshuffled drawPile
+    //assign deck from Deck singleton to drawPile (pre-shuffle) and then shuffle
     private void assignDeck() {
-
+        drawPile = Deck.getInstance(Game.getInstance().getPlayers().size()).getDeck();
+        shuffleCards();
     }
 
     //shuffles deck of uno cards
@@ -48,7 +49,6 @@ public final class Game {
         drawPile = shuffled;
     }
 
-    //todo
     //deals 8 cards (alternating) to each player
     public void dealCards() {
         for (int i = 0; i < 8; i++) {
