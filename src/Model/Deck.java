@@ -86,7 +86,7 @@ public final class Deck {
         return deck;
     }
 
-    public static Deck getInstance(int numPlayers) {
+    public static Deck getInstance() {
         if (originalDeck == null) {
             originalDeck = new Deck();
         }
