@@ -1,13 +1,12 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 //represents a player in a game of uno
 public class Player {
     private final int playerID;
     private Game game;
-    private List<Card> hand = new ArrayList<>();
+    private ArrayList<Card> hand = new ArrayList<>();
 
     public Player(int playerID, Game g) {
         this.playerID = playerID;
@@ -27,16 +26,31 @@ public class Player {
         hand.remove(c);
         //todo
         switch (c.getName()) {
-            case "reverse": turnReverse();
-            case "skip": skipTurn();
-            case "drawTwo": drawTwo();
-            case "drawFour": drawFour();
-            case "wildCard": wildCard();
+            case "reverse":
+                turnReverse();
+                break;
+            case "skip":
+                skipTurn();
+                break;
+            case "drawTwo":
+                drawTwo();
+                break;
+            case "drawFour":
+                drawFour();
+                break;
+            case "wildCard":
+                wildCard();
+                break;
+            default:
+                numberCard();
+                break;
             }
         }
 
     //set reversed to true and advance to next turn with the opposite traversal array
     private void turnReverse() {
+        game.reverse();
+        game.advanceTurn();
     }
 
     //advance next turn 2 indices rather than 1
@@ -55,8 +69,12 @@ public class Player {
     private void wildCard() {
     }
 
+    //update current number and color then discard
+    private void numberCard() {
+    }
 
-    public List<Card> getHand() {
+
+    public ArrayList<Card> getHand() {
         return hand;
     }
 }

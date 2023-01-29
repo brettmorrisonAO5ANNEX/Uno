@@ -5,15 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-//singleton pattern - represents game with players and cards
+//represents an uno game with players and cards
 public final class Game {
-    //used to determine which turn array with player IDs to traverse through
-    private Boolean reversed;
+    //used to determine which turn array with player IDs to traverse through (1 is normal, -1 is reversed)
+    private int reversed;
     private int currentTurn;
     private String currentColor;
     private int currentNumber;
-    private List<Integer> forwardTurn = new ArrayList<>();
-    private List<Integer> reversedTurn = new ArrayList<>();
     private HashMap<Integer, Player> players;
     private List<Card> drawPile;
     private List<Card> discardPile = new ArrayList<>();
@@ -23,30 +21,10 @@ public final class Game {
         addPlayers(numPlayers);
         //random player starts
         currentTurn = ThreadLocalRandom.current().nextInt(1, players.size() + 1);
-        reversed = false;
-        createTurnArrays();
+        reversed = 1;
         assignDeck();
         dealCards();
         initializeGame();
-    }
-
-    //create ascending and descending arrays of all player IDs
-    private void createTurnArrays() {
-        createAscending();
-        createDescending();
-    }
-    //creates ascending array of player indices
-    private void createAscending() {
-        for (int i = 1; i<= players.size(); i++) {
-            forwardTurn.add(i);
-        }
-    }
-
-    //creates descending array of player indices
-    private void createDescending() {
-        for (int i = players.size(); i>0; i--) {
-            reversedTurn.add(i);
-        }
     }
 
     //assign players to game
@@ -104,6 +82,21 @@ public final class Game {
         }
     }
 
+    //advances current turn depending on whether reversed is 1 or -1
+    public void advanceTurn() {
+        if (reversed == 1) {
+            currentTurn += 1;
+            if (currentTurn > 2) {
+                currentTurn -= 2;
+            }
+        } else {
+            currentTurn -= 1;
+            if (currentTurn < 1) {
+                currentTurn += 2;
+            }
+        }
+    }
+
     public HashMap<Integer, Player> getPlayers() {
         return players;
     }
@@ -116,11 +109,10 @@ public final class Game {
         return discardPile;
     }
 
-    public void setReversed(boolean b) {
-        reversed = b;
+    public void reverse() {
+        reversed = reversed * -1;
     }
-
-    public boolean getReversed() {
+    public int getReversed() {
         return reversed;
     }
 }
