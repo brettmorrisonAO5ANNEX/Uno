@@ -1,5 +1,5 @@
-# Uno
-This is a custom implementation of Uno using Java. I plan to expand into React.js for a more interactive GUI after complete game functionality is confirmed using the Java.swing library.
+# Uno - Status: SCRAPPED 
+# ISSUE: overcomplicated design with minimal and inconsistent work sessions. May redesign in the future.
 
 ## Project Timeline
 
